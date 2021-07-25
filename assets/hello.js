@@ -1,3 +1,0 @@
-sayHello() {
-    console.log('Hello');
-}
