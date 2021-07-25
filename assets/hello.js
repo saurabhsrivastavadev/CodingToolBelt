@@ -1,0 +1,3 @@
+sayHello() {
+    console.log('Hello');
+}
