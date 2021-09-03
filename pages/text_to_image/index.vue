@@ -27,6 +27,25 @@
     <section class="mt-2">
       <div class="flex">
         <div class="flex flex-col mr-2">
+          <label class="font-berkshire">Text Font Size</label>
+          <input v-model="canvasTextFontSize" placeholder="Text Font Size" class="p-2 border-2 border-red-400">
+        </div>
+        <div class="flex flex-col">
+          <label class="font-berkshire">Text Font Family</label>
+          <select v-model="canvasTextFontFamily" class="p-2 border-2 border-red-400 w-64">
+            <option value="Berkshire Swash">Berkshire Swash</option>
+            <option value="Courgette">Courgette</option>
+            <option value="Indie Flower">Indie Flower</option>
+            <option value="Pacifico">Pacifico</option>
+            <option value="Permanent Marker">Permanent Marker</option>
+            <option value="Satisfy">Satisfy</option>
+          </select>
+        </div>
+      </div>
+    </section>
+    <section class="mt-2">
+      <div class="flex">
+        <div class="flex flex-col mr-2">
           <label class="font-berkshire">Text Left Position</label>
           <input v-model="canvasTextPosLeft" placeholder="Text Pos Left" class="p-2 border-2 border-red-400">
         </div>
@@ -47,9 +66,10 @@ export default {
       canvasHeight: 200,
       canvasWidth: 500,
       canvasText: 'Hello World',
-      canvasTextPosLeft: 120,
-      canvasTextPosTop: 80,
-      canvasTextFont: '30px Arial',
+      canvasTextPosLeft: 175,
+      canvasTextPosTop: 98,
+      canvasTextFontSize: 30,
+      canvasTextFontFamily: 'Satisfy',
     }
   },
   computed: {
@@ -62,7 +82,8 @@ export default {
     iframeSrc() {
       return `/iframes/text_to_image?` +
       `h=${this.canvasHeight}&w=${this.canvasWidth}&t=${this.canvasText}&` +
-      `tt=${this.canvasTextPosTop}&tl=${this.canvasTextPosLeft}&tf=${this.canvasTextFont}`;
+      `tt=${this.canvasTextPosTop}&tl=${this.canvasTextPosLeft}&tfs=${this.canvasTextFontSize}px&` +
+      `tff=${this.canvasTextFontFamily}`;
     } 
   }
 }
