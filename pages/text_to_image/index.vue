@@ -10,11 +10,11 @@
       <div class="flex">
         <div class="flex flex-col mr-2">
           <label class="font-berkshire">Canvas Width</label>
-          <input v-model="canvasWidth" placeholder="Canvas Width" class="p-2 border-2 border-red-400">
+          <input v-model="canvasInfo.width" placeholder="Canvas Width" class="p-2 border-2 border-red-400">
         </div>
         <div class="flex flex-col">
           <label class="font-berkshire">Canvas Height</label>
-          <input v-model="canvasHeight" placeholder="Canvas Height" class="p-2 border-2 border-red-400">
+          <input v-model="canvasInfo.height" placeholder="Canvas Height" class="p-2 border-2 border-red-400">
         </div>
       </div>
     </section>
@@ -26,30 +26,28 @@
 </template>
 
 <script>
+class CanvasInfo {
+  height = 200;
+  width = 500;
+}
 export default {
   data() {
+    const ci = new CanvasInfo();
     return {
-      canvasHeight: 200,
-      canvasWidth: 500,
-      canvasText: 'Hello World',
-      canvasTextPosLeft: 175,
-      canvasTextPosTop: 98,
-      canvasTextFontSize: 30,
-      canvasTextFontFamily: 'Satisfy',
+      canvasInfo: ci,
+      encodedCanvasInfo: '',
+      encodedTextInfo: '',
     }
   },
   computed: {
     iframeHeight() {
-      return parseInt(this.canvasHeight) + 30;
+      return parseInt(this.canvasInfo.height) + 30;
     },
     iframeWidth() {
-      return parseInt(this.canvasWidth) + 30;
+      return parseInt(this.canvasInfo.width) + 30;
     },
     iframeSrc() {
-      return `/iframes/text_to_image?` +
-      `h=${this.canvasHeight}&w=${this.canvasWidth}&t=${this.canvasText}&` +
-      `tt=${this.canvasTextPosTop}&tl=${this.canvasTextPosLeft}&tfs=${this.canvasTextFontSize}px&` +
-      `tff=${this.canvasTextFontFamily}`;
+      return `/iframes/text_to_image?ci=${this.encodedCanvasInfo}&ti=${this.encodedTextInfo}`;
     } 
   },
   methods: {
@@ -57,8 +55,8 @@ export default {
      * @param {TextInfoModel} textInfo
      */
     handleChange(textInfo) {
-      console.log('received textInfo');
-      console.log(JSON.stringify(textInfo));
+      this.encodedCanvasInfo = encodeURIComponent(JSON.stringify(this.canvasInfo));
+      this.encodedTextInfo = encodeURIComponent(JSON.stringify(textInfo));
     }
   }
 }

@@ -4,7 +4,7 @@
       <div class="flex flex-col items-center">
         <label class="font-berkshire">Text</label>
         <input
-          v-model="text"
+          v-model="textInfo.text"
           placeholder="Text"
           size="60"
           class="p-2 border-2 border-red-400 text-center"
@@ -17,7 +17,7 @@
         <div class="flex flex-col mr-2">
           <label class="font-berkshire">Text Font Size</label>
           <input
-            v-model="textFontSize"
+            v-model="textInfo.fontSize"
             placeholder="Text Font Size"
             class="p-2 border-2 border-red-400"
             @keyup="handleChange"
@@ -26,7 +26,7 @@
         <div class="flex flex-col">
           <label class="font-berkshire">Text Font Family</label>
           <select
-            v-model="textFontFamily"
+            v-model="textInfo.fontFamily"
             class="p-2 border-2 border-red-400 w-64"
             @change="handleChange"
           >
@@ -45,7 +45,7 @@
         <div class="flex flex-col mr-2">
           <label class="font-berkshire">Text Left Position</label>
           <input
-            v-model="textPosLeft"
+            v-model="textInfo.posLeft"
             placeholder="Text Pos Left"
             class="p-2 border-2 border-red-400"
             @keyup="handleChange"
@@ -54,7 +54,7 @@
         <div class="flex flex-col">
           <label class="font-berkshire">Text Top Position</label>
           <input
-            v-model="textPosTop"
+            v-model="textInfo.posTop"
             placeholder="Text Pos Top"
             class="p-2 border-2 border-red-400"
             @keyup="handleChange"
@@ -68,24 +68,23 @@
 <script>
 export class TextInfoModel {
     text = 'Hello World';
-    textPosLeft = 175;
-    textPosTop = 98;
+    posLeft = 175;
+    posTop = 98;
+    fontSize = 30;
+    fontFamily = 'Satisfy';
 }
 export default {
   data() {
+    const ti = new TextInfoModel();
     return {
-      text: 'Hello Worlddd',
-      textPosLeft: 175,
-      textPosTop: 98,
-      textFontSize: 30,
-      textFontFamily: 'Satisfy',
+      textInfo: ti,
     }
   },
   computed: {
   },
   methods: {
     handleChange() {
-        this.$emit('change', new TextInfoModel());
+        this.$emit('change', this.textInfo);
     }
   }
 }
