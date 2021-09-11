@@ -10,11 +10,11 @@
       <div class="flex">
         <div class="flex flex-col mr-2">
           <label class="font-berkshire">Canvas Width</label>
-          <input v-model="canvasInfo.width" placeholder="Canvas Width" class="p-2 border-2 border-red-400">
+          <input v-model="canvasInfo.width" placeholder="Canvas Width" class="p-2 border-2 border-red-400" @keyup="handleKeyup">
         </div>
         <div class="flex flex-col">
           <label class="font-berkshire">Canvas Height</label>
-          <input v-model="canvasInfo.height" placeholder="Canvas Height" class="p-2 border-2 border-red-400">
+          <input v-model="canvasInfo.height" placeholder="Canvas Height" class="p-2 border-2 border-red-400" @keyup="handleKeyup">
         </div>
       </div>
     </section>
@@ -26,6 +26,7 @@
 </template>
 
 <script>
+import { TextInfoModel } from '~/components/TextInfo';
 class CanvasInfo {
   height = 200;
   width = 500;
@@ -33,8 +34,10 @@ class CanvasInfo {
 export default {
   data() {
     const ci = new CanvasInfo();
+    const ti = new TextInfoModel();
     return {
       canvasInfo: ci,
+      textInfo: ti,
       encodedCanvasInfo: '',
       encodedTextInfo: '',
     }
@@ -55,8 +58,14 @@ export default {
      * @param {TextInfoModel} textInfo
      */
     handleChange(textInfo) {
+      if (!textInfo) textInfo = this.textInfo;
+      this.textInfo = textInfo;
       this.encodedCanvasInfo = encodeURIComponent(JSON.stringify(this.canvasInfo));
-      this.encodedTextInfo = encodeURIComponent(JSON.stringify(textInfo));
+      this.encodedTextInfo = encodeURIComponent(JSON.stringify(this.textInfo));
+    },
+
+    handleKeyup() {
+      this.handleChange();
     }
   }
 }
