@@ -13,35 +13,43 @@ class TextInfoModel {
 }
 
 const defaultCanvasInfo = new CanvasInfo();
-const defaultTextInfo = new TextInfoModel();
+const ti1 = new TextInfoModel();
+const ti2 = new TextInfoModel();
+ti2.posLeft += 20;
+ti2.posTop += 20;
+const defaultTextInfoArray = [ti1, ti2];
 
 // fetch url parameters
 let url = new URL(window.location.href);
 let encodedCanvasInfo = url.searchParams.get('ci');
-let encodedTextInfo = url.searchParams.get('ti');
+let encodedTextInfoArray = url.searchParams.get('tia');
 
 // Decode 
 let canvasInfo = decodeURIComponent(encodedCanvasInfo);
-let textInfo = decodeURIComponent(encodedTextInfo);
+let textInfoArray = decodeURIComponent(encodedTextInfoArray);
 
-if (canvasInfo) {
+if (encodedCanvasInfo) {
     canvasInfo = JSON.parse(canvasInfo);
 } else {
     canvasInfo = defaultCanvasInfo;
 }
-if (textInfo) {
-    textInfo = JSON.parse(textInfo);
+if (encodedTextInfoArray) {
+    textInfoArray = JSON.parse(textInfoArray);
 } else {
-    textInfo = defaultTextInfo;
+    textInfoArray = defaultTextInfoArray;
 }
 
 console.log(canvasInfo);
-console.log(textInfo);
+console.log(textInfoArray);
 
 // setup canvas as per parameters
 let canvas = document.getElementById('canvas');
 canvas.width = canvasInfo.width;
 canvas.height = canvasInfo.height;
 let ctx = canvas.getContext('2d');
-ctx.font = `${textInfo.fontSize}px "${textInfo.fontFamily}"`;
-ctx.fillText(textInfo.text, textInfo.posLeft, textInfo.posTop);
+
+// add text elements
+for (const textInfo of textInfoArray) {
+    ctx.font = `${textInfo.fontSize}px "${textInfo.fontFamily}"`;
+    ctx.fillText(textInfo.text, textInfo.posLeft, textInfo.posTop);    
+}

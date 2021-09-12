@@ -1,6 +1,6 @@
 <template>
-  <div class="flex flex-col items-center">
-    <section class="mt-2">
+  <div class="flex flex-col items-center bg-red-100 p-4 border-2 border-red-200">
+    <section>
       <div class="flex flex-col items-center">
         <label class="font-berkshire">Text</label>
         <input
