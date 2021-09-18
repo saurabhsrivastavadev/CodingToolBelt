@@ -10,7 +10,7 @@
     </section>
     <div class="flex flex-wrap justify-center mt-8">
       <section>
-        <Canvas class="mr-4 mb-4" />
+        <Canvas class="mr-4 mb-4" :encodedTextInfoArray="encodedTextInfoArray" />
       </section>
       <section>
         <TextInfo @change="handleChange" />
@@ -21,36 +21,28 @@
 
 <script>
 import { TextInfoModel } from '~/components/TextInfo'
-class CanvasInfo {
-  height = 200
-  width = 500
-}
 export default {
   data() {
-    const ci = new CanvasInfo()
-    const ti = new TextInfoModel()
+    const ti = new TextInfoModel();
     return {
-      canvasInfo: ci,
       textInfo: ti,
-      encodedTextInfoArray: '',
+      encodedTextInfoArray: ''
     }
-  },
-  computed: {
   },
   methods: {
     /** Receives the change event from text info
      * @param {TextInfoModel} textInfo
      */
     handleChange(textInfo) {
-      if (!textInfo) textInfo = this.textInfo
-      this.textInfo = textInfo
+      if (!textInfo) textInfo = this.textInfo;
+      this.textInfo = textInfo;
       this.encodedTextInfoArray = encodeURIComponent(
         JSON.stringify([this.textInfo])
-      )
+      );
     },
 
     handleKeyup() {
-      this.handleChange()
+      this.handleChange();
     },
   },
 }

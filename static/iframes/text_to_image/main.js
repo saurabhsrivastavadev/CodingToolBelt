@@ -34,6 +34,7 @@ if (encodedCanvasInfo) {
     canvasInfo = defaultCanvasInfo;
 }
 if (encodedTextInfoArray) {
+    console.log(textInfoArray);
     textInfoArray = JSON.parse(textInfoArray);
 } else {
     textInfoArray = defaultTextInfoArray;

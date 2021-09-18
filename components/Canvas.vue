@@ -35,30 +35,37 @@ class CanvasInfo {
   width = 500
 }
 export default {
+  props: {
+    encodedTextInfoArray: {
+      type: String,
+      default: ""
+    }
+  },
   data() {
-    const ci = new CanvasInfo()
+    const ci = new CanvasInfo();
     return {
       canvasInfo: ci,
       encodedCanvasInfo: '',
-      encodedTextInfoArray: '',
     }
   },
   computed: {
     iframeHeight() {
-      return parseInt(this.canvasInfo.height) + 30
+      return parseInt(this.canvasInfo.height) + 30;
     },
     iframeWidth() {
-      return parseInt(this.canvasInfo.width) + 30
+      return parseInt(this.canvasInfo.width) + 30;
     },
     iframeSrc() {
       return `/iframes/text_to_image?ci=${this.encodedCanvasInfo}&tia=${this.encodedTextInfoArray}`
     },
   },
   created() {
-    this.encodedCanvasInfo = encodeURIComponent(JSON.stringify(this.canvasInfo))
+    this.encodedCanvasInfo = encodeURIComponent(JSON.stringify(this.canvasInfo));
   },
   methods: {
-    handleKeyup() {},
+    handleKeyup() {
+      this.encodedCanvasInfo = encodeURIComponent(JSON.stringify(this.canvasInfo));
+    },
   },
 }
 </script>
