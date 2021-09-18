@@ -86,6 +86,9 @@ export default {
       textInfo: ti,
     }
   },
+  created() {
+    this.$emit('change', this.id, this.textInfo);
+  },
   methods: {
     handleChange() {
         this.$emit('change', this.id, this.textInfo);
