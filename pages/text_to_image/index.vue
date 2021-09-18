@@ -10,7 +10,7 @@
     </section>
     <div class="flex flex-wrap justify-center mt-8">
       <section>
-        <Canvas class="mr-4 mb-4" :encodedTextInfoArray="encodedTextInfoArray" />
+        <Canvas class="mr-4 mb-4" :encoded-text-info-array="encodedTextInfoArray" />
       </section>
       <section>
         <TextInfo @change="handleChange" />
