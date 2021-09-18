@@ -13,17 +13,22 @@
         <Canvas class="mr-4 mb-4" :encoded-text-info-array="encodedTextInfoArray" />
       </section>
       <section>
-        <TextInfo :id="0" @change="handleChange" />
+        <TextInfo v-for="textInfo in textInfoArray" :id="textInfo.id" :key="textInfo.id" class="mb-4" @change="handleChange" />
       </section>
     </div>
   </div>
 </template>
 
 <script>
+import { TextInfoModel } from "../../components/TextInfo";
 export default {
   data() {
+    const ti = new TextInfoModel();
+    const ti2 = new TextInfoModel();
+    ti2.id = 1;
+
     return {
-      textInfo: null,
+      textInfoArray: [ti, ti2],
       encodedTextInfoArray: ''
     }
   },
@@ -32,9 +37,13 @@ export default {
      * @param {TextInfoModel} textInfo
      */
     handleChange(id, textInfo) {
-      this.textInfo = textInfo;
+      for (const ti of this.textInfoArray) {
+        if (ti.id === id) {
+          Object.assign(ti, textInfo);
+        }
+      }
       this.encodedTextInfoArray = encodeURIComponent(
-        JSON.stringify([this.textInfo])
+        JSON.stringify(this.textInfoArray)
       );
     },
   },

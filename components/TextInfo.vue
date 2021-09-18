@@ -67,6 +67,7 @@
 
 <script>
 export class TextInfoModel {
+    id = 0;
     text = 'Hello World';
     posLeft = 145;
     posTop = 105;
@@ -82,6 +83,7 @@ export default {
   },
   data() {
     const ti = new TextInfoModel();
+    ti.id = this.id;
     return {
       textInfo: ti,
     }

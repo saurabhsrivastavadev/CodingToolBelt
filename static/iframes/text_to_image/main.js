@@ -5,6 +5,7 @@ class CanvasInfo {
     width = 500;
 }
 class TextInfoModel {
+    id = 0;
     text = 'Hello World';
     posLeft = 175;
     posTop = 98;
