@@ -68,23 +68,27 @@
 <script>
 export class TextInfoModel {
     text = 'Hello World';
-    posLeft = 175;
-    posTop = 98;
-    fontSize = 30;
+    posLeft = 145;
+    posTop = 105;
+    fontSize = 50;
     fontFamily = 'Satisfy';
 }
 export default {
+  props: {
+    id: {
+      type: Number,
+      required: true
+    }
+  },
   data() {
     const ti = new TextInfoModel();
     return {
       textInfo: ti,
     }
   },
-  computed: {
-  },
   methods: {
     handleChange() {
-        this.$emit('change', this.textInfo);
+        this.$emit('change', this.id, this.textInfo);
     }
   }
 }

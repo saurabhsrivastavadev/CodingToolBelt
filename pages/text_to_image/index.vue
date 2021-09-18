@@ -13,19 +13,17 @@
         <Canvas class="mr-4 mb-4" :encoded-text-info-array="encodedTextInfoArray" />
       </section>
       <section>
-        <TextInfo @change="handleChange" />
+        <TextInfo :id="0" @change="handleChange" />
       </section>
     </div>
   </div>
 </template>
 
 <script>
-import { TextInfoModel } from '~/components/TextInfo'
 export default {
   data() {
-    const ti = new TextInfoModel();
     return {
-      textInfo: ti,
+      textInfo: null,
       encodedTextInfoArray: ''
     }
   },
@@ -33,16 +31,11 @@ export default {
     /** Receives the change event from text info
      * @param {TextInfoModel} textInfo
      */
-    handleChange(textInfo) {
-      if (!textInfo) textInfo = this.textInfo;
+    handleChange(id, textInfo) {
       this.textInfo = textInfo;
       this.encodedTextInfoArray = encodeURIComponent(
         JSON.stringify([this.textInfo])
       );
-    },
-
-    handleKeyup() {
-      this.handleChange();
     },
   },
 }
