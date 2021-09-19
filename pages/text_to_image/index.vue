@@ -14,6 +14,7 @@
       </section>
       <section>
         <TextInfo v-for="textInfo in textInfoArray" :id="textInfo.id" :key="textInfo.id" class="mb-4" @change="handleChange" />
+        <button class="border-1 border-red-100 p-2 px-4 mb-4 bg-red-400" @click="addText">Add Text</button>
       </section>
     </div>
   </div>
@@ -21,14 +22,13 @@
 
 <script>
 import { TextInfoModel } from "../../components/TextInfo";
+let textInfoId = 0;
 export default {
   data() {
     const ti = new TextInfoModel();
-    const ti2 = new TextInfoModel();
-    ti2.id = 1;
-
+    ti.id = textInfoId;
     return {
-      textInfoArray: [ti, ti2],
+      textInfoArray: [ti],
       encodedTextInfoArray: ''
     }
   },
@@ -46,6 +46,12 @@ export default {
         JSON.stringify(this.textInfoArray)
       );
     },
+
+    addText() {
+      const ti = new TextInfoModel();
+      ti.id = ++textInfoId;
+      this.textInfoArray.push(ti);
+    }
   },
 }
 </script>
