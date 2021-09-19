@@ -13,7 +13,8 @@
         <Canvas class="mr-4 mb-4" :encoded-text-info-array="encodedTextInfoArray" />
       </section>
       <section>
-        <TextInfo v-for="textInfo in textInfoArray" :id="textInfo.id" :key="textInfo.id" class="mb-4" @change="handleChange" />
+        <TextInfo v-for="textInfo in textInfoArray" :id="textInfo.id" :key="textInfo.id" class="mb-4" 
+                  @change="handleChange" @close="handleClose" />
         <button class="border-1 border-red-100 p-2 px-4 mb-4 bg-red-400" @click="addText">Add Text</button>
       </section>
     </div>
@@ -46,7 +47,17 @@ export default {
         JSON.stringify(this.textInfoArray)
       );
     },
-
+    handleClose(id) {
+      for (const ti of this.textInfoArray) {
+        if (ti.id === id) {
+          const idxToRemove = this.textInfoArray.indexOf(ti);
+          this.textInfoArray.splice(idxToRemove, 1);
+        }
+      }
+      this.encodedTextInfoArray = encodeURIComponent(
+        JSON.stringify(this.textInfoArray)
+      );
+    },
     addText() {
       const ti = new TextInfoModel();
       ti.id = ++textInfoId;

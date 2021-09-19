@@ -1,15 +1,18 @@
 <template>
   <div class="flex flex-col items-center bg-red-100 p-4 border-2 border-red-200">
     <section>
-      <div class="flex flex-col items-center">
-        <label class="font-berkshire">Text</label>
-        <input
-          v-model="textInfo.text"
-          placeholder="Text"
-          size="60"
-          class="p-2 border-2 border-red-400 text-center"
-          @keyup="handleChange"
-        />
+      <div class="flex">
+        <div class="flex flex-col items-center">
+          <label class="font-berkshire">Text</label>
+          <input
+            v-model="textInfo.text"
+            placeholder="Text"
+            size="60"
+            class="p-2 border-2 border-red-400 text-center"
+            @keyup="handleChange"
+          />
+        </div>
+        <button class="px-4 ml-4 bg-red-800 rounded-full text-white" @click="handleClose">X</button>
       </div>
     </section>
     <section class="mt-2">
@@ -93,7 +96,10 @@ export default {
   },
   methods: {
     handleChange() {
-        this.$emit('change', this.id, this.textInfo);
+      this.$emit('change', this.id, this.textInfo);
+    },
+    handleClose() {
+      this.$emit('close', this.id);
     }
   }
 }
