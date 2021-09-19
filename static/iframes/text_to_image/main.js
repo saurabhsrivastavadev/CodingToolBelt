@@ -11,6 +11,7 @@ class TextInfoModel {
     posTop = 98;
     fontSize = 30;
     fontFamily = 'Satisfy';
+    rotateDegrees = 0;
 }
 
 const defaultCanvasInfo = new CanvasInfo();
@@ -52,6 +53,10 @@ let ctx = canvas.getContext('2d');
 
 // add text elements
 for (const textInfo of textInfoArray) {
+    if (textInfo.rotateDegrees > 0) {
+        ctx.rotate(textInfo.rotateDegrees * Math.PI / 180);
+    }
     ctx.font = `${textInfo.fontSize}px "${textInfo.fontFamily}"`;
-    ctx.fillText(textInfo.text, textInfo.posLeft, textInfo.posTop);    
+    ctx.fillText(textInfo.text, textInfo.posLeft, textInfo.posTop);
+    ctx.resetTransform();
 }

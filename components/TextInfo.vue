@@ -54,11 +54,20 @@
             @keyup="handleChange"
           />
         </div>
-        <div class="flex flex-col">
+        <div class="flex flex-col mr-2">
           <label class="font-berkshire">Text Top Position</label>
           <input
             v-model="textInfo.posTop"
             placeholder="Text Pos Top"
+            class="p-2 border-2 border-red-400"
+            @keyup="handleChange"
+          />
+        </div>
+        <div class="flex flex-col">
+          <label class="font-berkshire">Text Rotation Degrees</label>
+          <input
+            v-model="textInfo.rotateDegrees"
+            placeholder="Text Rotation Degrees"
             class="p-2 border-2 border-red-400"
             @keyup="handleChange"
           />
@@ -73,9 +82,10 @@ export class TextInfoModel {
     id = 0;
     text = 'Hello World';
     posLeft = 145;
-    posTop = 105;
+    posTop = 25;
     fontSize = 50;
     fontFamily = 'Satisfy';
+    rotateDegrees = 20;
 }
 export default {
   props: {

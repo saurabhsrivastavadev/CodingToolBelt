@@ -26,12 +26,15 @@ import { TextInfoModel } from "../../components/TextInfo";
 let textInfoId = 0;
 export default {
   data() {
-    const ti = new TextInfoModel();
-    ti.id = textInfoId;
     return {
-      textInfoArray: [ti],
+      textInfoArray: [new TextInfoModel()],
       encodedTextInfoArray: ''
     }
+  },
+  created() {
+    this.encodedTextInfoArray = encodeURIComponent(
+      JSON.stringify(this.textInfoArray)
+    );
   },
   methods: {
     /** Receives the change event from text info
