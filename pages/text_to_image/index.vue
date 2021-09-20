@@ -4,7 +4,7 @@
       <h1 class="font-berkshire text-4xl">Text to Image tool</h1>
     </section>
     <section id="description">
-      <p class="font-berkshire">
+      <p class="font-berkshire text-red-800">
         Tool to convert your text to an image with specified parameters.
       </p>
     </section>

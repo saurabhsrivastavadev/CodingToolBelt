@@ -1,8 +1,11 @@
 <template>
-<div class="p-2 flex justify-center font-pacifico text-xl">
-  <ul>
+<div class="p-2 flex justify-center font-pacifico text-xl text-center">
+  <ul class="space-y-4">
     <li>
       <NuxtLink to="/text_to_image">Text to Image Conversion</NuxtLink>
+    </li>
+    <li>
+      <NuxtLink to="/text_manipulation">Text Manipulation</NuxtLink>
     </li>
   </ul>
 </div>
