@@ -8,13 +8,40 @@
         Tool to manipulate some text from/to your clipboard.
       </p>
     </section>
-    <div class="flex flex-wrap mt-8 space-x-8">
+    <div class="flex flex-wrap mt-8 space-x-4">
       <section>
-        <p class="font-marker">Text Area goes here</p>
+        <textarea id="textArea" cols="150" rows="22" v-model="value" @keyup="textUpdated" class="border-2 border-red-500 p-2 text-sm"></textarea>
       </section>
       <section>
-        <p class="font-marker">Controls go here</p>
+        <div class="border-2 border-red-900 p-2 text-sm">
+          {{lineCount}} Lines <br/>
+          {{wordCount}} Words <br/>
+          {{charCount}} Characters
+        </div>
       </section>
     </div>
   </div>
 </template>
+
+<script>
+export default {
+  data() {
+    return {
+      value: "Hello World\nHow are you doing today?  ",
+      lineCount: 0,
+      wordCount: 0,
+      charCount: 0,
+    }
+  },
+  methods: {
+    textUpdated() {
+      this.lineCount = this.value.split(/\r\n|\r|\n/).length;
+      this.wordCount = this.value.split(' ').length;
+      this.charCount = this.value.length;
+    }
+  },
+  created() {
+    this.textUpdated();
+  }
+}
+</script>
