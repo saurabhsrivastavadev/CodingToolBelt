@@ -69,6 +69,7 @@ export default {
         lineNumber++;
       }
       this.value = updatedValue;
+      this.textUpdated();
     },
     keepNonEmpty() {
       const lines = this.value.split(/\r\n|\r|\n/);
@@ -80,6 +81,7 @@ export default {
         }
       }
       this.value = updatedValue;
+      this.textUpdated();
     },
     trimWhitespaces() {
       const lines = this.value.split(/\r\n|\r|\n/);
@@ -89,6 +91,7 @@ export default {
         updatedValue += '\n';
       }
       this.value = updatedValue;
+      this.textUpdated();
     }
   },
 }
