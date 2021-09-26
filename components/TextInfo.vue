@@ -1,9 +1,9 @@
 <template>
-  <div class="flex flex-col items-center bg-red-100 p-4 border-2 border-red-200">
+  <div class="flex flex-col items-center bg-red-100 p-4 border-2 border-red-200 font-ubuntu">
     <section>
       <div class="flex">
         <div class="flex flex-col items-center">
-          <label class="font-berkshire">Text</label>
+          <label class="font-bold">Text</label>
           <input
             v-model="textInfo.text"
             placeholder="Text"
@@ -39,6 +39,11 @@
             <option value="Pacifico">Pacifico</option>
             <option value="Permanent Marker">Permanent Marker</option>
             <option value="Satisfy">Satisfy</option>
+            <option value="Cherish">Cherish</option>
+            <option value="Dosis">Dosis</option>
+            <option value="Gluten">Gluten</option>
+            <option value="Metal">Metal</option>
+            <option value="Ubuntu">Ubuntu</option>
           </select>
         </div>
       </div>

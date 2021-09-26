@@ -8,6 +8,11 @@ module.exports = {
           'pacifico': ['"Pacifico"', 'cursive'],
           'marker': ['"Permanent Marker"', 'cursive'],
           'satisfy': ['"Satisfy"', 'cursive'],
+          'cherish': ['"Cherish"', 'cursive'],
+          'dosis': ['"Dosis"', 'cursive'],
+          'gluten': ['"Gluten"', 'cursive'],
+          'metal': ['"Metal"', 'cursive'],
+          'ubuntu': ['"Ubuntu"', 'cursive'],
         }
       }
     }
