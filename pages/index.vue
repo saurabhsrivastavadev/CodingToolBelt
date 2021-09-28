@@ -7,6 +7,9 @@
     <li>
       <NuxtLink to="/text_manipulation">Text Manipulation</NuxtLink>
     </li>
+    <li>
+      <NuxtLink to="/json_editor">JSON Editor</NuxtLink>
+    </li>
   </ul>
 </div>
 </template>
