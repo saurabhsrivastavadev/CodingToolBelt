@@ -10,7 +10,7 @@
     </section>
     <div class="flex flex-wrap mt-8 space-x-4">
       <section>
-        <textarea ref="textArea" v-model="value" cols="150" rows="22"
+        <textarea ref="textArea" v-model="value" cols="100" rows="22"
                   class="border-2 border-red-500 p-2 text-sm"
                    @keyup="textUpdated"></textarea>
       </section>
@@ -19,6 +19,8 @@
           {{statusMessage}}
         </div>
         <div class="border-2 border-green-900 p-2 my-2 flex flex-col space-y-2">
+          <button class="rounded-sm bg-red-200 hover:bg-red-600 hover:text-white p-2 rounded font-courgette"
+                  @click="undo">Undo last change</button>
           <button class="rounded-sm bg-red-200 hover:bg-red-600 hover:text-white p-2 rounded font-courgette"
                   @click="indentJson">Indent JSON</button>
           <button class="rounded-sm bg-red-200 hover:bg-red-600 hover:text-white p-2 rounded font-courgette"
@@ -35,10 +37,12 @@ export default {
     return {
       value: "{\"message\":\"Hello World\"}",
       statusMessage: '',
+      lastValue: '',
     }
   },
   created() {
     this.textUpdated();
+    this.lastValue = this.value;
   },
   methods: {
     textUpdated() {
@@ -49,9 +53,14 @@ export default {
         this.statusMessage = "Invalid JSON"
       }
     },
+    undo() {
+      this.value = this.lastValue;
+      this.textUpdated();
+    },
     indentJson() {
       try {
         const parsedValue = JSON.parse(this.value);
+        this.lastValue = this.value;
         this.value = JSON.stringify(parsedValue, null, 4);
       } catch (e) {
       }
@@ -60,6 +69,7 @@ export default {
       try {
         const parsedValue = JSON.parse(this.value);
         const filterField = prompt('Please specify field name to filter');
+        this.lastValue = this.value;
         this.value = JSON.stringify(parsedValue, [filterField], 4);
       } catch (e) {
       }
