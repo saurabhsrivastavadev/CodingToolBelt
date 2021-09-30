@@ -10,6 +10,9 @@
     <li>
       <NuxtLink to="/json_editor">JSON Editor</NuxtLink>
     </li>
+    <li>
+      <NuxtLink to="/hex_editor">HEX Editor</NuxtLink>
+    </li>
   </ul>
 </div>
 </template>
