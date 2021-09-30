@@ -36,7 +36,7 @@ export default {
     return {
       statusMessage: 'No file loaded.',
       value: '',
-      filePath: '',
+      fileName: '',
       fileContentAsText: '',
       fileContentAsHex: ''
     }
@@ -53,11 +53,13 @@ export default {
       const [fileHandle] = await window.showOpenFilePicker();
       const file = await fileHandle.getFile();
       this.fileContentAsText = await file.text();
+      this.fileName = await file.name;
       this.fileContentAsHex = '';
       for (const c of this.fileContentAsText) {
         this.fileContentAsHex += `0x${c.charCodeAt(0).toString(16)} `;
       }
       this.value = this.fileContentAsHex;
+      this.statusMessage = `Loaded ${this.fileName}`;
     },
     toggle() {
       if (this.value === this.fileContentAsText) {
