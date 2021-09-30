@@ -23,7 +23,8 @@
                   @click="loadFile">Load File to view</button>
           <button class="rounded-sm bg-red-200 hover:bg-red-600 hover:text-white p-2 rounded font-courgette"
                   @click="toggle">Toggle text/hex view</button>
-
+          <button class="rounded-sm bg-red-200 hover:bg-red-600 hover:text-white p-2 rounded font-courgette"
+                  @click="textToHex">Convert Text value to Hex</button>
         </div>
       </section>
     </div>
@@ -64,10 +65,19 @@ export default {
     toggle() {
       if (this.value === this.fileContentAsText) {
         this.value = this.fileContentAsHex;
-      } else {
+      } else if (this.value === this.fileContentAsHex) {
         this.value = this.fileContentAsText;
+      } else {
+        alert('Updated value, use hex-to-text or text-to-hex controls, or reload file.');
       }
-    }
+    },
+    textToHex() {
+      let hexContent = '';
+      for (const c of this.value) {
+        hexContent += `0x${c.charCodeAt(0).toString(16)} `;
+      }
+      this.value = hexContent;
+    },
   },
 }
 </script>
