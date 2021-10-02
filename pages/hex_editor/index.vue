@@ -25,6 +25,8 @@
                   @click="toggle">Toggle text/hex view</button>
           <button class="rounded-sm bg-red-200 hover:bg-red-600 hover:text-white p-2 rounded font-courgette"
                   @click="textToHex">Convert Text value to Hex</button>
+          <button class="rounded-sm bg-red-200 hover:bg-red-600 hover:text-white p-2 rounded font-courgette"
+                  @click="hexToText">Convert Hex value to Text</button>
         </div>
       </section>
     </div>
@@ -78,6 +80,16 @@ export default {
       }
       this.value = hexContent;
     },
+    hexToText() {
+      const words = this.value.split(' ');
+      let textValue = '';
+      for (const word of words) {
+        if (word.trim().length > 0) {
+          textValue += String.fromCharCode(parseInt(word));
+        }
+      }
+      this.value = textValue;
+    }
   },
 }
 </script>
