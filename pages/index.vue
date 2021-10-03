@@ -13,6 +13,9 @@
     <li>
       <NuxtLink to="/hex_editor">HEX Editor</NuxtLink>
     </li>
+    <li>
+      <NuxtLink to="/all_about_time">All about Time</NuxtLink>
+    </li>
   </ul>
 </div>
 </template>
