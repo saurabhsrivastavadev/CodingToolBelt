@@ -29,11 +29,16 @@
           </div>
         </div>
       </section>
-      <section id="middle" class="flex-grow items-center text-center">
-        <div class="flex flex-col items-center border-2 border-red-100 p-2">
+      <section id="middle" class="flex-grow items-center text-center space-y-2">
+        <div id="timeDisplay" class="flex flex-col items-center border-2 border-red-100 p-2">
           <p class="p-2 font-bold">{{timeDisplay}}</p>
           <button class="p-2 px-4 rounded-lg bg-green-200 hover:bg-green-600 w-48"
                   @click="playPause">Play/Pause</button>
+        </div>
+        <div id="msToDate" class="flex flex-col items-center border-2 border-red-100 p-2">
+          <input type="text" class="border-2 border-teal-400 p-2 rounded-lg text-center" 
+                  v-model="timeToConvertMillis" @keyup="convertTime">
+          <p class="font-bold mt-4">{{timeToConvertStr}}</p>
         </div>
       </section>
       <section id="right" class="flex-grow items-center text-center">
@@ -67,12 +72,15 @@ export default {
       timeDisplay: '',
       epoch: 'unix',
       updateTimeDisplayEnabled: true,
+      timeToConvertMillis: Date.now(),
+      timeToConvertStr: ''
     }
   },
   created() {
     setInterval(_ => {
       this.updateTimeDisplay();
     }, 100);
+    this.convertTime();
   },
   methods: {
     updateTimeDisplay() {
@@ -87,6 +95,10 @@ export default {
     },
     playPause() {
       this.updateTimeDisplayEnabled = !this.updateTimeDisplayEnabled;
+    },
+    convertTime() {
+      const d = new Date(parseInt(this.timeToConvertMillis));
+      this.timeToConvertStr = d.toString();
     }
   },
 }
