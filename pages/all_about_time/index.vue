@@ -25,7 +25,7 @@
             </p>
             <br/>
             <a href="https://pubs.opengroup.org/onlinepubs/9699919799/xrat/V4_xbd_chap03.html#tag_21_03_00_20"
-                target="blank">Ref:opengroup.org</a>
+               class="underline" target="blank">Ref:opengroup.org</a>
           </div>
         </div>
       </section>
@@ -36,9 +36,18 @@
                   @click="playPause">Play/Pause</button>
         </div>
         <div id="msToDate" class="flex flex-col items-center border-2 border-red-100 p-2">
-          <input type="text" class="border-2 border-teal-400 p-2 rounded-lg text-center" 
-                  v-model="timeToConvertMillis" @keyup="convertTime">
+          <input v-model="timeToConvertMillis" class="border-2 border-teal-400 p-2 rounded-lg text-center" 
+                 type="text" @keyup="convertTime">
           <p class="font-bold mt-4">{{timeToConvertStr}}</p>
+        </div>
+        <div id="timeDelta" class="flex flex-col items-center border-2 border-red-100 p-2 space-y-2">
+          <input v-model="timeDeltaArg1" class="border-2 border-teal-400 p-2 rounded-lg text-center mt-2" 
+                 type="text" @keyup="timeDelta">
+          <p class="font-bold">-</p>
+          <input v-model="timeDeltaArg2" class="border-2 border-teal-400 p-2 rounded-lg text-center" 
+                 type="text" @keyup="timeDelta">
+          <p class="font-bold">=</p>
+          <p class="font-bold mt-4">{{timeDeltaStr}}</p>
         </div>
       </section>
       <section id="right" class="flex-grow items-center text-center">
@@ -58,7 +67,7 @@
             </p>
             <br/>
             <a href="https://www.gps.gov/technical/icwg/IS-GPS-200G.pdf"
-                target="blank">Ref:gps.gov</a>
+               class="underline" target="blank">Ref:gps.gov</a>
           </div>
         </div>
       </section>
@@ -73,7 +82,10 @@ export default {
       epoch: 'unix',
       updateTimeDisplayEnabled: true,
       timeToConvertMillis: Date.now(),
-      timeToConvertStr: ''
+      timeToConvertStr: '',
+      timeDeltaStr: '',
+      timeDeltaArg1: Date.now(),
+      timeDeltaArg2: Date.now() - 3661000,
     }
   },
   created() {
@@ -81,6 +93,7 @@ export default {
       this.updateTimeDisplay();
     }, 100);
     this.convertTime();
+    this.timeDelta();
   },
   methods: {
     updateTimeDisplay() {
@@ -99,6 +112,17 @@ export default {
     convertTime() {
       const d = new Date(parseInt(this.timeToConvertMillis));
       this.timeToConvertStr = d.toString();
+    },
+    timeDelta() {
+      let delta = new Date(parseInt(this.timeDeltaArg1)) - new Date(parseInt(this.timeDeltaArg2));
+      delta = delta / 1000;
+      const deltaDays = Math.floor(delta / 3600 / 24);
+      delta -= deltaDays * 3600 * 24;
+      const deltaHours = Math.floor(delta / 3600);
+      delta -= deltaHours * 3600;
+      const deltaMinutes = Math.floor(delta / 60);
+      delta -= deltaMinutes * 60;
+      this.timeDeltaStr = `${deltaDays} Days, ${deltaHours} Hours, ${deltaMinutes} Minutes, ${delta} Seconds.`;
     }
   },
 }
