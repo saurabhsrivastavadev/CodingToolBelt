@@ -8,8 +8,8 @@
         View and manipulate time values.
       </p>
     </section>
-    <section id="mainArea" class="flex font-ubuntu w-screen px-8 space-x-2">
-      <section id="left" class="flex-grow items-center text-center">
+    <section id="mainArea" class="flex flex-wrap font-ubuntu w-screen px-8 space-x-2">
+      <section id="left" class="flex-grow items-center text-center mb-2">
         <div class="flex flex-col items-center border-2 border-red-100 p-2">
           <button class="p-2 px-4 rounded-lg bg-green-200 hover:bg-green-600 hover:text-white"
                   @click="epoch = 'unix'">Show Milliseconds since Unix Epoch</button>
@@ -29,7 +29,7 @@
           </div>
         </div>
       </section>
-      <section id="middle" class="flex-grow items-center text-center space-y-2">
+      <section id="middle" class="flex-grow items-center text-center space-y-2 mb-2">
         <div id="timeDisplay" class="flex flex-col items-center border-2 border-red-100 p-2">
           <p class="p-2 font-bold">{{timeDisplay}}</p>
           <button class="p-2 px-4 rounded-lg bg-green-200 hover:bg-green-600 w-48"
