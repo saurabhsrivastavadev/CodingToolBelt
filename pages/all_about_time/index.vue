@@ -79,6 +79,7 @@ export default {
   data() {
     return {
       timeDisplay: '',
+      timeDisplayTimer: null,
       epoch: 'unix',
       updateTimeDisplayEnabled: true,
       timeToConvertMillis: Date.now(),
@@ -89,11 +90,14 @@ export default {
     }
   },
   created() {
-    setInterval(_ => {
+    this.timeDisplayTimer = setInterval(_ => {
       this.updateTimeDisplay();
     }, 100);
     this.convertTime();
     this.timeDelta();
+  },
+  beforeUnmount() {
+    clearInterval(this.timeDisplayTimer);
   },
   methods: {
     updateTimeDisplay() {
