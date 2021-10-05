@@ -16,6 +16,9 @@
     <li>
       <NuxtLink to="/all_about_time">All about Time</NuxtLink>
     </li>
+    <li>
+      <NuxtLink to="/github_profile_badge">Github Profile Badge</NuxtLink>
+    </li>
   </ul>
 </div>
 </template>
