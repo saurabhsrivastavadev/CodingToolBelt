@@ -14,9 +14,12 @@
                   class="border-2 border-red-500 p-2 text-sm"
                    @keyup="textUpdated"></textarea>
       </section>
-      <section>
-        <div class="border-2 border-red-900 p-2 text-xl font-ubuntu font-bold text-center">
+      <section class="text-xl font-ubuntu font-bold text-center">
+        <div>
           {{statusMessage}}
+        </div>
+        <div v-if="isArray">
+          Array element count: {{arrayCount}}
         </div>
         <div class="border-2 border-green-900 p-2 my-2 flex flex-col space-y-2">
           <button class="rounded-sm bg-red-200 hover:bg-red-600 hover:text-white p-2 rounded font-courgette"
@@ -35,9 +38,11 @@
 export default {
   data() {
     return {
-      value: "{\"message\":\"Hello World\"}",
+      value: "[{\"message\":\"Hello World\"},{\"message\":\"How are you.\"}]",
       statusMessage: '',
       lastValue: '',
+      isArray: false,
+      arrayCount: 0,
     }
   },
   created() {
@@ -46,9 +51,14 @@ export default {
   },
   methods: {
     textUpdated() {
+      this.isArray = false;
       try {
-        JSON.parse(this.value);
+        const parsedJson = JSON.parse(this.value);
         this.statusMessage = "Valid JSON"
+        this.isArray = Array.isArray(parsedJson);
+        if (this.isArray) {
+          this.arrayCount = parsedJson.length;
+        }
       } catch(e) {
         this.statusMessage = "Invalid JSON"
       }
