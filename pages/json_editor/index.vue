@@ -21,13 +21,15 @@
         <div v-if="isArray">
           Array element count: {{arrayCount}}
         </div>
-        <div class="border-2 border-green-900 p-2 my-2 flex flex-col space-y-2">
+        <div class="border-2 border-green-900 p-2 my-2 flex flex-col space-y-2 w-60">
           <button class="rounded-sm bg-red-200 hover:bg-red-600 hover:text-white p-2 rounded font-courgette"
                   @click="undo">Undo last change</button>
           <button class="rounded-sm bg-red-200 hover:bg-red-600 hover:text-white p-2 rounded font-courgette"
                   @click="indentJson">Indent JSON</button>
           <button class="rounded-sm bg-red-200 hover:bg-red-600 hover:text-white p-2 rounded font-courgette"
                   @click="filterJson">Filter JSON fields</button>
+          <button class="rounded-sm bg-red-200 hover:bg-red-600 hover:text-white p-2 rounded font-courgette"
+                  @click="keepFirst">Keep only first array element</button>
         </div>
       </section>
     </div>
@@ -84,6 +86,17 @@ export default {
       } catch (e) {
       }
     },
+    keepFirst() {
+      try {
+        const parsedValue = JSON.parse(this.value);
+        this.lastValue = this.value;
+        if (Array.isArray(parsedValue) && parsedValue.length > 0) {
+          this.value = JSON.stringify([parsedValue[0]]);
+          this.textUpdated();
+        }
+      } catch (e) {
+      }
+    }
   },
 }
 </script>
