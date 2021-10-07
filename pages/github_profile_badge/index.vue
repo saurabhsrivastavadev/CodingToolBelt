@@ -23,17 +23,24 @@
         Github Request Quota: {{rateLimitRemaining}}/{{rateLimit}}
       </button>
     </section>
-    <section v-if="userProfile" id="badgeArea" class="m-4 mt-10 p-4 border-red-200 border-2">
-      {{userProfile}}
-      <br/><br/>
-      <div v-if="fetchCompleted">
-        <div v-for="userRepo in userReposArray" :key="userRepo.name" class="text-center">
-          <b>{{userRepo.name}}</b>
-          <br/>
-          {{userRepo.commitsArray.length}} Commits.
-          <br/>
-          {{userRepo.languages}}
-          <br/><br/>
+    <section v-if="fetchCompleted" id="badgeArea" class="m-4 mt-10 p-4 border-red-200 border-2 text-center">
+      <div class="flex space-x-4 divide-x-2 divide-red-200">
+        <div id="leftCol">
+          <img :src="userProfile.avatarUrl" alt="ProfilePic" class="rounded-3xl w-40">
+          <div class="font-bold mt-2">{{userProfile.name}}</div>
+          <a class="underline" :href="`https://github.com/${userProfile.login}`" target="blank">{{userProfile.login}}</a>
+          <div>{{userProfile.publicRepoCount}} Public Github Repos</div>
+          <div>{{totalCommits}} Total Commits</div>
+        </div>
+        <div id="middleCol" class="flex flex-col justify-center pl-4">
+          <div v-for="(languageBytes, languageName) in totalLanguages" :key="languageName" class="font-sm">
+            {{languageName}} = {{languageBytes}} Bytes of code
+          </div>
+        </div>
+        <div id="rightCol" class="flex flex-col justify-center pl-4">
+          <div v-for="userRepo in userReposArray.slice(0, 9)" :key="userRepo.name" class="font-sm">
+            {{userRepo.name}} = {{userRepo.commitsArray.length}} Commits
+          </div>
         </div>
       </div>
     </section>
@@ -113,10 +120,12 @@ export default {
       loadButtonText: 'Load User Profile',
       userId: 'saurabhsrivastavadev',
       userProfile: null,
-      userReposArray: null,
+      userReposArray: [],
       rateLimit: 0,
       rateLimitRemaining: 0,
       fetchCompleted: false,
+      totalCommits: 0,
+      totalLanguages: {},
     }
   },
   async created() {
@@ -136,6 +145,8 @@ export default {
       try {
 
         this.fetchCompleted = false;
+        this.totalCommits = 0;
+        this.totalLanguages = {};
 
         this.loadButtonText = 'Fetching User Profile..';
         let response = await fetch(`https://api.github.com/users/${this.userId}`);
@@ -152,13 +163,26 @@ export default {
           response = await fetch(`https://api.github.com/repos/${this.userId}/${repo.name}/commits`);
           const commitArrayJsonStr = await response.text();
           repo.commitsArray = GitCommit.parseGitCommitArrayJsonStr(commitArrayJsonStr);
+          this.totalCommits += repo.commitsArray.length;
         }
+
+        // Sort the repo array in place
+        this.userReposArray.sort((repo1, repo2) => {
+          return (repo2.commitsArray.length - repo1.commitsArray.length);
+        });
 
         this.loadButtonText = 'Fetching Language Info..';
         for (const repo of this.userReposArray) {
           response = await fetch(`https://api.github.com/repos/${this.userId}/${repo.name}/languages`);
           const languagesJsonStr = await response.text();
           repo.languages = JSON.parse(languagesJsonStr);
+          for (const [key, value] of Object.entries(repo.languages)) {
+            if (this.totalLanguages[key]) {
+              this.totalLanguages[key] += value;
+            } else {
+              this.totalLanguages[key] = value;
+            }
+          }
         }
 
         this.loadButtonText = 'Done. Click to fetch again.';
