@@ -154,13 +154,13 @@ export default {
         this.userProfile = new UserProfile(userProfileJsonStr);
 
         this.loadButtonText = 'Fetching User Repositories..';
-        response = await fetch(`https://api.github.com/users/${this.userId}/repos`);
+        response = await fetch(`https://api.github.com/users/${this.userId}/repos?per_page=100`);
         const userReposJsonStr = await response.text();
         this.userReposArray = UserRepo.parseUserRepoArrayJsonStr(userReposJsonStr);
 
         this.loadButtonText = 'Fetching Commits..';
         for (const repo of this.userReposArray) {
-          response = await fetch(`https://api.github.com/repos/${this.userId}/${repo.name}/commits`);
+          response = await fetch(`https://api.github.com/repos/${this.userId}/${repo.name}/commits?per_page=100`);
           const commitArrayJsonStr = await response.text();
           repo.commitsArray = GitCommit.parseGitCommitArrayJsonStr(commitArrayJsonStr);
           this.totalCommits += repo.commitsArray.length;
@@ -173,7 +173,7 @@ export default {
 
         this.loadButtonText = 'Fetching Language Info..';
         for (const repo of this.userReposArray) {
-          response = await fetch(`https://api.github.com/repos/${this.userId}/${repo.name}/languages`);
+          response = await fetch(`https://api.github.com/repos/${this.userId}/${repo.name}/languages?per_page=100`);
           const languagesJsonStr = await response.text();
           repo.languages = JSON.parse(languagesJsonStr);
           for (const [key, value] of Object.entries(repo.languages)) {
