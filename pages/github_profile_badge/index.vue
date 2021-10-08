@@ -23,23 +23,23 @@
         Github Request Quota: {{rateLimitRemaining}}/{{rateLimit}}
       </button>
     </section>
-    <section v-if="fetchCompleted" id="badgeArea" class="m-4 mt-10 p-4 border-red-200 border-2 text-center">
+    <section v-if="fetchCompleted" id="badgeArea" class="m-4 mt-10 p-4 border-red-200 border-2 rounded-lg">
       <div class="flex space-x-4 divide-x-2 divide-red-200">
-        <div id="leftCol">
+        <div id="leftCol" class="text-center">
           <img :src="userProfile.avatarUrl" alt="ProfilePic" class="rounded-3xl w-40">
           <div class="font-bold mt-2">{{userProfile.name}}</div>
           <a class="underline" :href="`https://github.com/${userProfile.login}`" target="blank">{{userProfile.login}}</a>
-          <div>{{userProfile.publicRepoCount}} Public Github Repos</div>
-          <div>{{totalCommits}} Total Commits</div>
+          <div class="font-bold">{{userProfile.publicRepoCount}} Public Github Repos</div>
+          <div class="font-bold">{{totalCommits}} Total Commits</div>
         </div>
         <div id="middleCol" class="flex flex-col justify-center pl-4">
           <div v-for="(languageBytes, languageName) in totalLanguages" :key="languageName" class="font-sm">
-            {{languageName}} = {{languageBytes}} Bytes of code
+            <b>{{languageName}}</b> = {{(languageBytes/1024).toFixed(2)}} KB of code
           </div>
         </div>
         <div id="rightCol" class="flex flex-col justify-center pl-4">
           <div v-for="userRepo in userReposArray.slice(0, 9)" :key="userRepo.name" class="font-sm">
-            {{userRepo.name}} = {{userRepo.commitsArray.length}} Commits
+            <b>{{userRepo.name}}</b> = {{userRepo.commitsArray.length}} Commits
           </div>
         </div>
       </div>
@@ -184,6 +184,10 @@ export default {
             }
           }
         }
+
+        // Sort the languages
+        this.totalLanguages = Object.fromEntries(Object.entries(this.totalLanguages).sort(
+            ([,languageBytes1], [,languageBytes2]) => languageBytes2 - languageBytes1));
 
         this.loadButtonText = 'Done. Click to fetch again.';
         this.fetchCompleted = true;
