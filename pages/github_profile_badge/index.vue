@@ -33,13 +33,19 @@
           <div class="font-bold">{{totalCommits}} Total Commits</div>
         </div>
         <div id="middleCol" class="flex flex-col justify-center pl-4">
-          <div v-for="(languageBytes, languageName) in totalLanguages" :key="languageName" class="font-sm">
-            <b>{{languageName}}</b> = {{(languageBytes/1024).toFixed(2)}} KB of code
+          <div class="font-bold">Total KB of code per language</div>
+          <br/>
+          <div v-for="(languageBytes, languageName) in totalLanguages" :key="languageName" class="font-sm flex">
+            <div class="w-40">{{languageName}}</div>
+            <div>{{(languageBytes/1024).toFixed(2)}} KB</div>
           </div>
         </div>
         <div id="rightCol" class="flex flex-col justify-center pl-4">
-          <div v-for="userRepo in userReposArray.slice(0, 9)" :key="userRepo.name" class="font-sm">
-            <b>{{userRepo.name}}</b> = {{userRepo.commitsArray.length}} Commits
+          <div class="font-bold">Top 10 Repos with highest commits</div>
+          <br/>
+          <div v-for="userRepo in userReposArray.slice(0, 9)" :key="userRepo.name" class="font-sm flex">
+            <a class="underline w-60 truncate" :href="`https://github.com/${userProfile.login}/${userRepo.name}`" target="blank">{{userRepo.name}}</a>
+            <div>{{userRepo.commitsArray.length}} commits</div>
           </div>
         </div>
       </div>
