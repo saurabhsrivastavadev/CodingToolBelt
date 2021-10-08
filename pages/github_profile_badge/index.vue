@@ -23,19 +23,19 @@
         Github Request Quota: {{rateLimitRemaining}}/{{rateLimit}}
       </button>
     </section>
-    <section v-if="fetchCompleted" id="badgeArea" class="m-4 mt-10 p-4 border-red-200 border-2 rounded-lg">
+    <section v-if="fetchCompleted" id="badgeArea" class="m-4 mt-10 p-4 px-6 border-gray-600 border-2 rounded-lg">
       <div class="flex space-x-4 divide-x-2 divide-red-200">
         <div id="leftCol" class="text-center">
           <img :src="userProfile.avatarUrl" alt="ProfilePic" class="rounded-3xl w-40">
           <div class="font-bold mt-2">{{userProfile.name}}</div>
           <a class="underline" :href="`https://github.com/${userProfile.login}`" target="blank">{{userProfile.login}}</a>
-          <div class="font-bold">{{userProfile.publicRepoCount}} Public Github Repos</div>
-          <div class="font-bold">{{totalCommits}} Total Commits</div>
+          <div class="font-bold text-sm mt-2">{{userProfile.publicRepoCount}} Public Github Repos</div>
+          <div class="font-bold text-sm">{{totalCommits}} Total Commits</div>
         </div>
         <div id="middleCol" class="flex flex-col justify-center pl-4">
           <div class="font-bold">Total KB of code per language</div>
           <br/>
-          <div v-for="(languageBytes, languageName) in totalLanguages" :key="languageName" class="font-sm flex">
+          <div v-for="(languageBytes, languageName) in totalLanguages" :key="languageName" class="text-sm flex">
             <div class="w-40">{{languageName}}</div>
             <div>{{(languageBytes/1024).toFixed(2)}} KB</div>
           </div>
@@ -43,7 +43,7 @@
         <div id="rightCol" class="flex flex-col justify-center pl-4">
           <div class="font-bold">Top 10 Repos with highest commits</div>
           <br/>
-          <div v-for="userRepo in userReposArray.slice(0, 9)" :key="userRepo.name" class="font-sm flex">
+          <div v-for="userRepo in userReposArray.slice(0, 9)" :key="userRepo.name" class="text-sm flex">
             <a class="underline w-60 truncate" :href="`https://github.com/${userProfile.login}/${userRepo.name}`" target="blank">{{userRepo.name}}</a>
             <div>{{userRepo.commitsArray.length}} commits</div>
           </div>
